@@ -23,8 +23,8 @@ const Thumb = styled.figure`
         position: relative;
 
         &::after {
-          position: absolute;
           content : '';
+          position: absolute;
           bottom: -10px;
           left: 0;
           width: 100%;
