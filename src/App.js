@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const Thumb = styled.figure`
   font-family: 'Rubik Light', sans-serif;
+  cursor: pointer;
 
   img {
     width: 300px;
@@ -44,6 +45,7 @@ function App() {
 
   const openModal = () => {
     setShowModal(prev => !prev)
+
   }
 
   return (
@@ -62,7 +64,7 @@ function App() {
          </figcaption>
        </Thumb>
 
-       {showModal && <Modal showModal={showModal} setShowModal={setShowModal}/>}
+       <Modal showModal={showModal} setShowModal={setShowModal}/>
      </Container>
     </>
   );

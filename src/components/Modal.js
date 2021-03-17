@@ -1,4 +1,5 @@
 import React from 'react'
+import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
 import {MdClose} from 'react-icons/md'
 
@@ -59,28 +60,39 @@ const CloseModalButton = styled(MdClose)`
 `
 
 export const Modal =  ({showModal, setShowModal}) => {
+    const animation = useSpring({
+        config: {
+            duration: 250
+        },
+
+        opacity: showModal ? 1 : 0,
+        transform: showModal ? `translateY(0%)` : `translateY(-100%)`
+    })
+
     return (
         <>
+        {showModal && (
             <Background>
-                <ModalWrapper>
-                    <ModalCover/>
+                <animated.div style={animation}>
+                    <ModalWrapper>
+                        <ModalCover/>
 
-                    <ModalContent>
-                        <h1>Episode #1 - Daniela</h1>
+                        <ModalContent>
+                            <h1>Episode #1 - Daniela</h1>
 
-                        <p>
-                            Daniela est une jeune artiste et skateuse bruxelloise. Dans cet épisode qui lui est dédié,
-                            on parle entre autre de ses projets de tote bags inspirés des émotions de ses clients, ses 
-                            débuts dans le skate quand elle a débarqué à Bruxelles et de l'évolution de la scène skate
-                            féminine à Bruxelles depuis ces dernières années.
-                        </p>
-                    </ModalContent>
+                            <p>
+                                Daniela est une jeune artiste et skateuse bruxelloise. Dans cet épisode qui lui est dédié,
+                                on parle entre autre de ses projets de tote bags inspirés des émotions de ses clients, ses 
+                                débuts dans le skate quand elle a débarqué à Bruxelles et de l'évolution de la scène skate
+                                féminine à Bruxelles depuis ces dernières années.
+                            </p>
+                        </ModalContent>
 
-                    <CloseModalButton aria-label='Close modal' onClick={() => setShowModal(prev => !prev)}/>
-                </ModalWrapper>
+                        <CloseModalButton aria-label='Close modal' onClick={() => setShowModal(prev => !prev)}/>
+                    </ModalWrapper>
+                </animated.div>
             </Background>
-           
+        )}
         </>
-
     )
 }
