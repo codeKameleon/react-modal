@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useCallback, useEffect} from 'react'
 import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
 import {MdClose} from 'react-icons/md'
@@ -67,6 +67,13 @@ export const Modal =  ({showModal, setShowModal}) => {
             setShowModal(false)
         }
     }
+
+    const keyPress = useCallback(e => {
+        if(e.key === 'Escape' && showModal) {
+            setShowModal(false)
+        }
+    }, [showModal, setShowModal])
+
     const animation = useSpring({
         config: {
             duration: 250
@@ -75,6 +82,12 @@ export const Modal =  ({showModal, setShowModal}) => {
         opacity: showModal ? 1 : 0,
         transform: showModal ? `translateY(0%)` : `translateY(-100%)`
     })
+
+    useEffect(() => {
+        document.addEventListener('keydown', keyPress)
+
+        return () => document.removeEventListener('keydown', keyPress)
+    }, [keyPress])
 
     return (
         <>
