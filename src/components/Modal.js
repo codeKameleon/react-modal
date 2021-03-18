@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
 import {MdClose} from 'react-icons/md'
@@ -60,6 +60,13 @@ const CloseModalButton = styled(MdClose)`
 `
 
 export const Modal =  ({showModal, setShowModal}) => {
+    const modalRef =  useRef();
+    
+    const closeModal = e => {
+        if(modalRef.current === e.target) {
+            setShowModal(false)
+        }
+    }
     const animation = useSpring({
         config: {
             duration: 250
@@ -72,7 +79,7 @@ export const Modal =  ({showModal, setShowModal}) => {
     return (
         <>
         {showModal && (
-            <Background>
+            <Background ref={modalRef} onClick={closeModal}>
                 <animated.div style={animation}>
                     <ModalWrapper>
                         <ModalCover/>
