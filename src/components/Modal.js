@@ -1,7 +1,7 @@
-import React, {useRef, useCallback, useEffect} from 'react'
+import React, {useRef, useCallback, useState, useEffect} from 'react'
 import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
-import {MdClose} from 'react-icons/md'
+import {FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
 
 const Background = styled.div`
     position: fixed;
@@ -18,20 +18,11 @@ const ModalWrapper = styled.div`
     display: flex;
     align-items: center;
     width: 800px;
-    height: 500px;
+    height: 550px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, .2);
     border-radius: 10px;
-    background-color: rgba(0, 0, 0, .8);
+    background-color: rgba(0, 0, 0, .9);
     color: #000;
-`
-const ModalCover = styled.div`
-    width: 100%;
-    height: 100%;
-    background-image: url('https://i.ibb.co/vjzFCr9/daniela-modal.jpg');
-    background-size: cover;
-    background-position: 35% 50%;
-    border-radius: 10px 0 0 10px;
-    border-right: 1px dotted #fff;
 `
 const ModalContent =  styled.div`
     display: flex;
@@ -40,14 +31,35 @@ const ModalContent =  styled.div`
     align-items: center;
     line-height: 1.8;
     font-family: 'Rubik Light', sans-serif;
-    /*color: #141414;*/
     color: #fff;
+    padding: 4rem;
+
+
+    img {
+        margin-bottom: 2rem;
+    }
 
     p {
-        padding: 3rem;
+        margin-bottom: 2rem;
+    }
+
+
+    h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+    }
+
+    a {
+        margin-right: 1rem;
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
     }
 `
-const CloseModalButton = styled(MdClose)`
+const CloseModalButton = styled(FaTimes)`
     cursor: pointer;
     position: absolute;
     top: 20px;
@@ -57,7 +69,7 @@ const CloseModalButton = styled(MdClose)`
     padding: 0;
     z-index: 10;
     color: #fff;
-`
+`   
 
 export const Modal =  ({showModal, setShowModal}) => {
     const modalRef =  useRef();
@@ -83,6 +95,88 @@ export const Modal =  ({showModal, setShowModal}) => {
         transform: showModal ? `translateY(0%)` : `translateY(-100%)`
     })
 
+    const useFetch = url => {
+        const [state, setState] =  useState({
+            items: [],
+            loading: true
+        });
+    
+        useEffect(() => {
+            const fetchData = async () => {
+                const response =  await fetch(url);
+                const data =  await response.json();
+    
+                if(response.ok) {
+                    setState({
+                        items: data,
+                        loading: false
+                    })
+                } else {
+                    alert(JSON.stringify(data))
+                    setState(s => ({...s, loading: false}))
+                }
+            }
+            fetchData();
+        }, [])
+    
+    
+        return [
+            state.items,
+            state.loading
+        ];
+    }
+    
+    const SetModalContent = () => {
+        const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
+
+
+        if(loading) {
+            return <p>Loading</p>
+        } else {
+            console.log('items', items)
+        }
+
+        return (
+            <>
+                <header>
+                    <h1>{items[0].title}</h1>
+                </header>
+
+                <img width="200" style={{borderRadius: '50%', border: '1px dotted #fff'}} src={items[0].photo} alt={items[0].photo_alt}/>
+
+                <p>
+                    {items[0].description}
+                </p>
+
+                <footer>
+                    <div>
+                        <h2>{items[0].socials.title}</h2>
+
+                        <a href={items[0].socials.instagram} target="_blank">
+                            <FaInstagram style={{color: '#fff', fontSize: '1.25rem'}}/>
+                        </a>
+
+                        <a href={items[0].socials.facebook} >
+                            <FaFacebookF style={{color: '#fff',fontSize: '1.25rem'}}/>
+                        </a>
+                    </div>
+
+                    <div>
+                        <h2>{items[0].podcast_links.title}</h2>
+
+                        <a href={items[0].podcast_links.spotify} target="_blank">
+                            <FaSpotify style={{color: '#fff', fontSize: '1.25rem'}}/>
+                        </a>
+
+                        <a href={items[0].podcast_links.soundcloud} target="_blank">
+                            <FaSoundcloud style={{color: '#fff', fontSize: '1.225rem'}}/>
+                        </a>
+                    </div>
+                </footer>
+            </>
+        )
+    } 
+
     useEffect(() => {
         document.addEventListener('keydown', keyPress)
 
@@ -95,17 +189,8 @@ export const Modal =  ({showModal, setShowModal}) => {
             <Background ref={modalRef} onClick={closeModal}>
                 <animated.div style={animation}>
                     <ModalWrapper>
-                        <ModalCover/>
-
                         <ModalContent>
-                            <h1>Episode #1 - Daniela</h1>
-
-                            <p>
-                                Daniela est une jeune artiste et skateuse bruxelloise. Dans cet épisode qui lui est dédié,
-                                on parle entre autre de ses projets de tote bags inspirés des émotions de ses clients, ses 
-                                débuts dans le skate quand elle a débarqué à Bruxelles et de l'évolution de la scène skate
-                                féminine à Bruxelles depuis ces dernières années.
-                            </p>
+                            <SetModalContent/>
                         </ModalContent>
 
                         <CloseModalButton aria-label='Close modal' onClick={() => setShowModal(prev => !prev)}/>
