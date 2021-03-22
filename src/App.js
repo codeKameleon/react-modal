@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalFonts from './fonts/fonts';
 import { GlobalStyle } from './globalStyles';
@@ -12,6 +12,7 @@ const Container = styled.div`
 `
 
 const Thumb = styled.figure`
+  padding: 2rem;
   font-family: 'Rubik Light', sans-serif;
   cursor: pointer;
 
@@ -42,11 +43,67 @@ const Thumb = styled.figure`
 
 function App() {
   const [showModal, setShowModal] = useState(false)
+  const [selectedEpisode, setSelectedEpisode] = useState(null)
 
-  const openModal = () => {
+  const openModal = i => {
     setShowModal(prev => !prev)
-
+    setSelectedEpisode(selectedEpisode => i)
   }
+
+  const useFetch = url => {
+    const [state, setState] =  useState({
+        items: [],
+        loading: true
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if(response.ok) {
+                setState({
+                    items: data,
+                    loading: false
+                })
+            } else {
+                alert(JSON.stringify(data))
+                setState(s => ({...s, loading: false}))
+            }
+        }
+        fetchData();
+    })
+
+    return [
+        state.items,
+        state.loading
+    ];
+  }
+
+  const EpisodeThumb = () => {
+    const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
+
+    if(loading) {
+        return <p>Loading ...</p>
+    } 
+
+    return (
+      <>
+        {items.map((item, i) => {
+          return (
+            <Thumb key={item.id} onClick={() => openModal(i)}>
+              <img src={item.thumb_link} alt={`Vignette Boarderless Podcast ${item.title}`}/>
+
+              <figcaption>
+                <h2>{item.title}</h2>
+                <h3>{item.subtitle}</h3>
+              </figcaption>
+            </Thumb>
+          )
+      })}
+    </>
+  )
+} 
 
   return (
     <>
@@ -55,16 +112,9 @@ function App() {
       <GlobalStyle/>
 
       <Container>
-       <Thumb onClick={openModal}>
-         <img src="https://i.ibb.co/qrwDYv0/episode-1.jpg" target="_blank" alt="Vignette Boarderless Podcast Episode 1 avec Daniela"/>
+        <EpisodeThumb />
 
-         <figcaption>
-           <h2>Episode 1</h2>
-           <h3>Avec Daniela</h3>
-         </figcaption>
-       </Thumb>
-
-       <Modal showModal={showModal} setShowModal={setShowModal}/>
+        <Modal showModal={showModal} setShowModal={setShowModal} selectedEpisode={selectedEpisode} setSelectedEpisode={setSelectedEpisode}/>
      </Container>
     </>
   );

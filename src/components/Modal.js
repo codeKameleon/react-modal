@@ -71,7 +71,7 @@ const CloseModalButton = styled(FaTimes)`
     color: #fff;
 `   
 
-export const Modal =  ({showModal, setShowModal}) => {
+export const Modal =  ({showModal, setShowModal, selectedEpisode, setSelectedEpisode}) => {
     const modalRef =  useRef();
     
     const closeModal = e => {
@@ -109,7 +109,7 @@ export const Modal =  ({showModal, setShowModal}) => {
                 if(response.ok) {
                     setState({
                         items: data,
-                        loading: false
+                        loading: false,
                     })
                 } else {
                     alert(JSON.stringify(data))
@@ -117,7 +117,7 @@ export const Modal =  ({showModal, setShowModal}) => {
                 }
             }
             fetchData();
-        }, [])
+        })
     
     
         return [
@@ -128,53 +128,53 @@ export const Modal =  ({showModal, setShowModal}) => {
     
     const SetModalContent = () => {
         const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
-
+        const episode = items[selectedEpisode]
 
         if(loading) {
-            return <p>Loading</p>
-        } else {
-            console.log('items', items)
+            return <p>Loading ...</p>
+        } 
+
+        if(selectedEpisode !== null) {
+            return(
+                <>
+                    <header>
+                        <h1>{episode.title}</h1>
+                    </header>
+
+                    <img width="200" style={{borderRadius: '50%', border: '1px dotted #fff'}} src={episode.photo} alt={episode.photo_alt}/>
+
+                    <p>
+                        {episode.description}
+                    </p>
+
+                    <footer>
+                        <div>
+                            <h2>{episode.socials.title}</h2>
+
+                            <a href={episode.socials.instagram} target="_blank" rel="noopener noreferrer">
+                                <FaInstagram style={{color: '#fff', fontSize: '1.25rem'}}/>
+                            </a>
+
+                            <a href={episode.socials.facebook} target="_blank" rel="noopener noreferrer" >
+                                <FaFacebookF style={{color: '#fff',fontSize: '1.25rem'}}/>
+                            </a>
+                        </div>
+
+                        <div>
+                            <h2>{episode.podcast_links.title}</h2>
+
+                            <a href={episode.podcast_links.spotify} target="_blank" rel="noopener noreferrer">
+                                <FaSpotify style={{color: '#fff', fontSize: '1.25rem'}}/>
+                            </a>
+
+                            <a href={episode.podcast_links.soundcloud} target="_blank" rel="noopener noreferrer">
+                                <FaSoundcloud style={{color: '#fff', fontSize: '1.225rem'}}/>
+                            </a>
+                        </div>
+                    </footer>
+                </>
+            )
         }
-
-        return (
-            <>
-                <header>
-                    <h1>{items[0].title}</h1>
-                </header>
-
-                <img width="200" style={{borderRadius: '50%', border: '1px dotted #fff'}} src={items[0].photo} alt={items[0].photo_alt}/>
-
-                <p>
-                    {items[0].description}
-                </p>
-
-                <footer>
-                    <div>
-                        <h2>{items[0].socials.title}</h2>
-
-                        <a href={items[0].socials.instagram} target="_blank">
-                            <FaInstagram style={{color: '#fff', fontSize: '1.25rem'}}/>
-                        </a>
-
-                        <a href={items[0].socials.facebook} >
-                            <FaFacebookF style={{color: '#fff',fontSize: '1.25rem'}}/>
-                        </a>
-                    </div>
-
-                    <div>
-                        <h2>{items[0].podcast_links.title}</h2>
-
-                        <a href={items[0].podcast_links.spotify} target="_blank">
-                            <FaSpotify style={{color: '#fff', fontSize: '1.25rem'}}/>
-                        </a>
-
-                        <a href={items[0].podcast_links.soundcloud} target="_blank">
-                            <FaSoundcloud style={{color: '#fff', fontSize: '1.225rem'}}/>
-                        </a>
-                    </div>
-                </footer>
-            </>
-        )
     } 
 
     useEffect(() => {
