@@ -15,16 +15,28 @@ const Thumb = styled.figure`
   position: relative;
   z-index: 1;
   padding: 2rem;
+  border: 4px solid #000;
+  margin: 1.5rem;
   font-family: 'Rubik Light', sans-serif;
   cursor: pointer;
 
+  .img-wrapper {
+    overflow: hidden;
+    border: 4px solid #000;
+    margin-bottom: 1rem;
+    transition: border 400ms ease;
+  }
+
   img {
     width: 300px;
+    display:block;
+    transition: transform 800ms ease;
   }
 
   figcaption {
       h2 {
         position: relative;
+        transition: color 1s;
 
         &::after {
           content : '';
@@ -39,8 +51,23 @@ const Thumb = styled.figure`
 
       h3 {
         margin-top: 0.85rem;
+        transition: color 400ms ease;
       }
-    }
+  }
+
+  &:hover .img-wrapper {
+    border-color: #FBB117;
+  }
+
+  &:hover img {
+      transform: scale(1.45);
+  }
+
+  &:hover h2,
+  &:hover h3 {
+    color: #FBB117;
+  }
+
 `
 
 function App() {
@@ -101,7 +128,9 @@ function App() {
         {items.map((item, i) => {
           return (
             <Thumb key={item.id} onClick={() => openModal(i)}>
-              <img src={item.thumb_link} alt={`Vignette Boarderless Podcast ${item.title}`}/>
+              <div className="img-wrapper">
+                <img src={item.thumb_link} alt={`Vignette Boarderless Podcast ${item.title}`}/>
+              </div>
 
               <figcaption>
                 <h2>{item.title}</h2>
