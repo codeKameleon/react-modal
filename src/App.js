@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import GlobalFonts from './fonts/fonts';
 import { GlobalStyle } from './globalStyles';
@@ -12,6 +12,8 @@ const Container = styled.div`
 `
 
 const Thumb = styled.figure`
+  position: relative;
+  z-index: 1;
   padding: 2rem;
   font-family: 'Rubik Light', sans-serif;
   cursor: pointer;
@@ -42,12 +44,19 @@ const Thumb = styled.figure`
 `
 
 function App() {
+  const modalRef =  useRef(null);
   const [showModal, setShowModal] = useState(false)
   const [selectedEpisode, setSelectedEpisode] = useState(null)
 
   const openModal = i => {
     setShowModal(prev => !prev)
     setSelectedEpisode(selectedEpisode => i)
+  }
+
+  const closeModal = e => {
+      if(modalRef.current === e.target) {
+          setShowModal(false)
+      }
   }
 
   const useFetch = url => {
@@ -114,7 +123,13 @@ function App() {
       <Container>
         <EpisodeThumb />
 
-        <Modal showModal={showModal} setShowModal={setShowModal} selectedEpisode={selectedEpisode} setSelectedEpisode={setSelectedEpisode}/>
+        <Modal 
+          ref={modalRef} 
+          showModal={showModal} 
+          setShowModal={setShowModal} 
+          selectedEpisode={selectedEpisode} 
+          setSelectedEpisode={setSelectedEpisode}
+          onClose={closeModal}/>
      </Container>
     </>
   );

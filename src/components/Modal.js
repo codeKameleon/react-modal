@@ -1,20 +1,24 @@
-import React, {useRef, useCallback, useState, useEffect} from 'react'
+import React, {forwardRef, useCallback, useState, useEffect} from 'react'
+import {createPortal} from 'react-dom'
 import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
 import {FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
 
 const Background = styled.div`
     position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;    
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .8);
+    z-index: 10;
 `
 const ModalWrapper = styled.div`
     position: relative;
-    z-index: 10;
+    z-index: 20;
     display: flex;
     align-items: center;
     width: 800px;
@@ -71,20 +75,8 @@ const CloseModalButton = styled(FaTimes)`
     color: #fff;
 `   
 
-export const Modal =  ({showModal, setShowModal, selectedEpisode, setSelectedEpisode}) => {
-    const modalRef =  useRef();
-    
-    const closeModal = e => {
-        if(modalRef.current === e.target) {
-            setShowModal(false)
-        }
-    }
-
-    const keyPress = useCallback(e => {
-        if(e.key === 'Escape' && showModal) {
-            setShowModal(false)
-        }
-    }, [showModal, setShowModal])
+ export const Modal =  forwardRef(({showModal, setShowModal, selectedEpisode,onClose}, ref) => {
+    const modalRoot =  document.getElementById('modal-root')
 
     const animation = useSpring({
         config: {
@@ -94,6 +86,12 @@ export const Modal =  ({showModal, setShowModal, selectedEpisode, setSelectedEpi
         opacity: showModal ? 1 : 0,
         transform: showModal ? `translateY(0%)` : `translateY(-100%)`
     })
+
+    const keyPress = useCallback(e => {
+        if(e.key === 'Escape' && showModal) {
+            setShowModal(false)
+        }
+    }, [showModal, setShowModal])
 
     const useFetch = url => {
         const [state, setState] =  useState({
@@ -183,10 +181,10 @@ export const Modal =  ({showModal, setShowModal, selectedEpisode, setSelectedEpi
         return () => document.removeEventListener('keydown', keyPress)
     }, [keyPress])
 
-    return (
+    return createPortal (
         <>
         {showModal && (
-            <Background ref={modalRef} onClick={closeModal}>
+            <Background ref={ref} onClick={onClose}>
                 <animated.div style={animation}>
                     <ModalWrapper>
                         <ModalContent>
@@ -198,6 +196,6 @@ export const Modal =  ({showModal, setShowModal, selectedEpisode, setSelectedEpi
                 </animated.div>
             </Background>
         )}
-        </>
+        </>, modalRoot
     )
-}
+})
