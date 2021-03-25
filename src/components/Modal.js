@@ -38,15 +38,15 @@ const ModalContent =  styled.div`
     color: #fff;
     padding: 4rem;
 
-
     img {
         margin-bottom: 2rem;
+        border-radius: 50%;
+        border: 4px solid #FBB117;
     }
 
     p {
         margin-bottom: 2rem;
     }
-
 
     h2 {
         margin-bottom: 0.5rem;
@@ -55,6 +55,16 @@ const ModalContent =  styled.div`
 
     a {
         margin-right: 1rem;
+    }
+
+    .icon {
+        color: #fff;
+        font-size: 1.25rem;
+        transition: color 400ms ease;
+
+        &:hover {
+            color: #FBB117;
+        }
     }
 
     footer {
@@ -139,7 +149,7 @@ const CloseModalButton = styled(FaTimes)`
                         <h1>{episode.title}</h1>
                     </header>
 
-                    <img width="200" style={{borderRadius: '50%', border: '1px dotted #fff'}} src={episode.photo} alt={episode.photo_alt}/>
+                    <img width="200" src={episode.photo} alt={episode.photo_alt}/>
 
                     <p>
                         {episode.description}
@@ -150,11 +160,11 @@ const CloseModalButton = styled(FaTimes)`
                             <h2>{episode.socials.title}</h2>
 
                             <a href={episode.socials.instagram} target="_blank" rel="noopener noreferrer">
-                                <FaInstagram style={{color: '#fff', fontSize: '1.25rem'}}/>
+                                <FaInstagram className="icon"/>
                             </a>
 
                             <a href={episode.socials.facebook} target="_blank" rel="noopener noreferrer" >
-                                <FaFacebookF style={{color: '#fff',fontSize: '1.25rem'}}/>
+                                <FaFacebookF className="icon"/>
                             </a>
                         </div>
 
@@ -162,11 +172,11 @@ const CloseModalButton = styled(FaTimes)`
                             <h2>{episode.podcast_links.title}</h2>
 
                             <a href={episode.podcast_links.spotify} target="_blank" rel="noopener noreferrer">
-                                <FaSpotify style={{color: '#fff', fontSize: '1.25rem'}}/>
+                                <FaSpotify className="icon"/>
                             </a>
 
                             <a href={episode.podcast_links.soundcloud} target="_blank" rel="noopener noreferrer">
-                                <FaSoundcloud style={{color: '#fff', fontSize: '1.225rem'}}/>
+                                <FaSoundcloud className="icon"/>
                             </a>
                         </div>
                     </footer>
