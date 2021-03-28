@@ -8,6 +8,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     html {
+        font-family: 'Rubik Light', sans-serif;
         font-size: 100%;
     }
 `

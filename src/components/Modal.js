@@ -1,9 +1,10 @@
-import React, {forwardRef, useCallback, useEffect} from 'react'
-import {createPortal} from 'react-dom'
-import {useSpring, animated} from 'react-spring'
+import React, { forwardRef, useCallback, useEffect } from 'react'
+import { createPortal } from 'react-dom'
+import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
-import {FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
-import {useFetch} from '../calls/useFetch';
+import { FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
+import { Loader } from './Loader';
+import { useFetch } from '../calls/useFetch';
 
 const Background = styled.div`
     position: fixed;
@@ -21,9 +22,10 @@ const ModalWrapper = styled.div`
     position: relative;
     z-index: 20;
     display: flex;
+    justify-content: center;
     align-items: center;
     width: 800px;
-    height: 550px;
+    height: auto;
     box-shadow: 0 5px 16px rgba(0, 0, 0, .2);
     border-radius: 10px;
     background-color: rgba(0, 0, 0, .9);
@@ -109,7 +111,7 @@ const CloseModalButton = styled(FaTimes)`
         const episode = items[selectedEpisode]
 
         if(loading) {
-            return <p>Loading ...</p>
+            return <Loader/>
         } 
 
         if(selectedEpisode !== null) {

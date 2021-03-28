@@ -2,7 +2,8 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import GlobalFonts from './fonts/fonts';
 import { GlobalStyle } from './globalStyles';
-import {useFetch} from './calls/useFetch';
+import { useFetch } from './calls/useFetch';
+import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
 
 const Container = styled.div`
@@ -18,7 +19,6 @@ const Thumb = styled.figure`
   padding: 2rem;
   border: 4px solid #000;
   margin: 1.5rem;
-  font-family: 'Rubik Light', sans-serif;
   cursor: pointer;
 
   .img-wrapper {
@@ -61,14 +61,13 @@ const Thumb = styled.figure`
   }
 
   &:hover img {
-      transform: scale(1.45);
+    transform: scale(1.45);
   }
 
   &:hover h2,
   &:hover h3 {
     color: #FBB117;
   }
-
 `
 
 function App() {
@@ -91,7 +90,7 @@ function App() {
     const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
 
     if(loading) {
-        return <p>Loading ...</p>
+        return <Loader/>
     } 
 
     return (
