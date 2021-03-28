@@ -1,7 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import GlobalFonts from './fonts/fonts';
 import { GlobalStyle } from './globalStyles';
+import {useFetch} from './calls/useFetch';
 import { Modal } from './components/Modal';
 
 const Container = styled.div`
@@ -84,36 +85,6 @@ function App() {
       if(modalRef.current === e.target) {
           setShowModal(false)
       }
-  }
-
-  const useFetch = url => {
-    const [state, setState] =  useState({
-        items: [],
-        loading: true
-    });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if(response.ok) {
-                setState({
-                    items: data,
-                    loading: false
-                })
-            } else {
-                alert(JSON.stringify(data))
-                setState(s => ({...s, loading: false}))
-            }
-        }
-        fetchData();
-    })
-
-    return [
-        state.items,
-        state.loading
-    ];
   }
 
   const EpisodeThumb = () => {

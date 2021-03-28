@@ -1,8 +1,9 @@
-import React, {forwardRef, useCallback, useState, useEffect} from 'react'
+import React, {forwardRef, useCallback, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 import {useSpring, animated} from 'react-spring'
 import styled from 'styled-components'
 import {FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
+import {useFetch} from '../calls/useFetch';
 
 const Background = styled.div`
     position: fixed;
@@ -102,37 +103,6 @@ const CloseModalButton = styled(FaTimes)`
             setShowModal(false)
         }
     }, [showModal, setShowModal])
-
-    const useFetch = url => {
-        const [state, setState] =  useState({
-            items: [],
-            loading: true
-        });
-    
-        useEffect(() => {
-            const fetchData = async () => {
-                const response =  await fetch(url);
-                const data =  await response.json();
-    
-                if(response.ok) {
-                    setState({
-                        items: data,
-                        loading: false,
-                    })
-                } else {
-                    alert(JSON.stringify(data))
-                    setState(s => ({...s, loading: false}))
-                }
-            }
-            fetchData();
-        })
-    
-    
-        return [
-            state.items,
-            state.loading
-        ];
-    }
     
     const SetModalContent = () => {
         const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
