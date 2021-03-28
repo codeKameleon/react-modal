@@ -7,10 +7,9 @@ import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 1em;
 `
 
 const Thumb = styled.figure`
@@ -23,13 +22,15 @@ const Thumb = styled.figure`
 
   .img-wrapper {
     overflow: hidden;
-    border: 4px solid #000;
+    width: 100%;
     margin-bottom: 1rem;
+    border: 4px solid #000;
     transition: border 400ms ease;
   }
 
   img {
-    width: 300px;
+    width: 100%;
+
     display:block;
     transition: transform 800ms ease;
   }
@@ -90,7 +91,10 @@ function App() {
     const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
 
     if(loading) {
-        return <Loader/>
+        return (
+          <Loader/>
+        )
+        
     } 
 
     return (
