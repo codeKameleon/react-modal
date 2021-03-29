@@ -10,13 +10,19 @@ const Background = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
     display: flex;
     justify-content: center;
-    align-items: center;    
-    width: 100%;
-    height: 100%;
+    align-items: start;   
+    overflow-x: hidden; 
+    overflow-y: auto;
     background: rgba(0, 0, 0, .8);
-    z-index: 10;
+
+    @media (min-width: 768px) {
+        align-items: center;
+    }
 `
 const ModalWrapper = styled.div`
     position: relative;
@@ -24,8 +30,7 @@ const ModalWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 800px;
-    height: auto;
+    max-width: 800px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, .2);
     border-radius: 10px;
     background-color: rgba(0, 0, 0, .9);
@@ -36,10 +41,10 @@ const ModalContent =  styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    line-height: 1.8;
-    font-family: 'Rubik Light', sans-serif;
-    color: #fff;
     padding: 4rem;
+    font-family: 'Rubik Light', sans-serif;
+    line-height: 1.8;
+    color: #fff;
 
     img {
         margin-bottom: 2rem;
@@ -72,8 +77,23 @@ const ModalContent =  styled.div`
 
     footer {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: space-around;
+        align-content: space-around;
         width: 100%;
+
+        div:first-child {
+            padding-bottom: 2rem;
+        }
+
+        @media (min-width: 768px){
+            flex-wrap: nowrap;
+            justify-content: space-between;
+
+            div:first-child {
+                padding-bottom: 0;
+            }
+        }
     }
 `
 const CloseModalButton = styled(FaTimes)`
