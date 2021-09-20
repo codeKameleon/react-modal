@@ -94,7 +94,6 @@ function App() {
         return (
           <Loader/>
         )
-        
     } 
 
     return (
