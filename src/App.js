@@ -88,7 +88,7 @@ function App() {
   }
 
   const EpisodeThumb = () => {
-    const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
+    const [items, loading] =  useFetch('http://next.json-generator.com/api/json/get/VkwZJaYQ9')
 
     if(loading) {
         return (
