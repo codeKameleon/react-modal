@@ -107,7 +107,6 @@ const CloseModalButton = styled(FaTimes)`
     z-index: 10;
     color: #fff;
 `   
-
  export const Modal =  forwardRef(({showModal, setShowModal, selectedEpisode,onClose}, ref) => {
     const modalRoot =  document.getElementById('modal-root')
 
@@ -127,7 +126,7 @@ const CloseModalButton = styled(FaTimes)`
     }, [showModal, setShowModal])
     
     const SetModalContent = () => {
-        const [items, loading] =  useFetch('https://next.json-generator.com/api/json/get/VkwZJaYQ9')
+        const [items, loading] =  useFetch(process.env.REACT_APP_API_URL, process.env.REACT_APP_API_TOKEN )
         const episode = items[selectedEpisode]
 
         if(loading) {
@@ -143,11 +142,10 @@ const CloseModalButton = styled(FaTimes)`
 
                     <img width="200" src={episode.photo} alt={episode.photo_alt}/>
 
-                    <p>
-                        {episode.description}
-                    </p>
-
-                    <footer>
+                    
+                    <p dangerouslySetInnerHTML={{ __html: episode.description }}></p>
+                    
+                    {/* <footer>
                         <div>
                             <h2>{episode.socials.title}</h2>
 
@@ -171,7 +169,7 @@ const CloseModalButton = styled(FaTimes)`
                                 <FaSoundcloud className="icon"/>
                             </a>
                         </div>
-                    </footer>
+                    </footer> */}
                 </>
             )
         }

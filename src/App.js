@@ -6,6 +6,8 @@ import { useFetch } from './calls/useFetch';
 import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
 
+
+// Style
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -87,8 +89,9 @@ function App() {
       }
   }
 
+  // Component
   const EpisodeThumb = () => {
-    const [items, loading] =  useFetch('http://next.json-generator.com/api/json/get/VkwZJaYQ9')
+    const [items, loading] =  useFetch(process.env.REACT_APP_API_URL, process.env.REACT_APP_API_TOKEN)
 
     if(loading) {
         return (
@@ -102,7 +105,7 @@ function App() {
           return (
             <Thumb key={item.id} onClick={() => openModal(i)}>
               <div className="img-wrapper">
-                <img src={item.thumb_link} alt={`Vignette Boarderless Podcast ${item.title}`}/>
+                <img src={item.artwork_url} alt={`Vignette Boarderless Podcast ${item.title}`}/>
               </div>
 
               <figcaption>

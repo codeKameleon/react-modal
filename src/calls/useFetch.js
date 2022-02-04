@@ -1,28 +1,28 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-
-export const useFetch = url => {
+export const useFetch = (url, token) => {
     const [state, setState] =  useState({
         items: [],
         loading: true
     });
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if(response.ok) {
+            axios.get(url, {
+                headers: {
+                    "Authorization": `Token token=${token}`
+                }
+            })
+            .then((res) => {
+                console.log('res data', res.data)
                 setState({
-                    items: data,
+                    items: res.data,
                     loading: false
                 })
-            } else {
-                alert(JSON.stringify(data))
-                setState(s => ({...s, loading: false}))
-            }
-        }
-        fetchData();
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }, [url])
 
     return [
