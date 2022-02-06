@@ -14,7 +14,6 @@ export const useFetch = (url, token) => {
                 }
             })
             .then((res) => {
-                console.log('res data', res.data)
                 setState({
                     items: res.data,
                     loading: false
@@ -23,7 +22,7 @@ export const useFetch = (url, token) => {
             .catch((error) => {
                 console.log(error)
             })
-    }, [url])
+    }, [url, token])
 
     return [
         state.items,
