@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/react-modal/static/js/main.da83a1f4.chunk.js",
-    "main.js.map": "/react-modal/static/js/main.da83a1f4.chunk.js.map",
+    "main.js": "/react-modal/static/js/main.ca129d06.chunk.js",
+    "main.js.map": "/react-modal/static/js/main.ca129d06.chunk.js.map",
     "runtime-main.js": "/react-modal/static/js/runtime-main.37bcad48.js",
     "runtime-main.js.map": "/react-modal/static/js/runtime-main.37bcad48.js.map",
     "static/js/2.d7a76e5f.chunk.js": "/react-modal/static/js/2.d7a76e5f.chunk.js",
@@ -16,6 +16,6 @@
   "entrypoints": [
     "static/js/runtime-main.37bcad48.js",
     "static/js/2.d7a76e5f.chunk.js",
-    "static/js/main.da83a1f4.chunk.js"
+    "static/js/main.ca129d06.chunk.js"
   ]
 }
