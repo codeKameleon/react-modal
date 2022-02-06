@@ -117,7 +117,7 @@ const CloseModalButton = styled(FaTimes)`
     z-index: 10;
     color: #fff;
 `   
- export const Modal =  forwardRef(({showModal, setShowModal, selectedEpisode,onClose}, ref) => {
+ export const Modal =  forwardRef(({ showModal, setShowModal, selectedEpisode, onClose }, ref) => {
     const modalRoot =  document.getElementById('modal-root')
 
     const animation = useSpring({
