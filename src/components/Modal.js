@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
-import { FaTimes, FaInstagram, FaFacebookF, FaSpotify, FaSoundcloud } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import { Loader } from './Loader';
 import { useFetch } from '../calls/useFetch';
 
@@ -16,8 +16,6 @@ const Background = styled.div`
     display: flex;
     justify-content: center;
     align-items: start;   
-    overflow-x: hidden; 
-    overflow-y: auto;
     background: rgba(0, 0, 0, .8);
 
     @media (min-width: 768px) {
@@ -25,23 +23,28 @@ const Background = styled.div`
     }
 `
 const ModalWrapper = styled.div`
+    max-width: 768px;
+    height: 100vh;
     position: relative;
+    overflow-y: scroll;
     z-index: 20;
     display: flex;
     justify-content: center;
-    align-items: center;
-    max-width: 800px;
     box-shadow: 0 5px 16px rgba(0, 0, 0, .2);
-    border-radius: 10px;
     background-color: rgba(0, 0, 0, .9);
+    border-radius: 10px;
     color: #000;
+
+    @media (min-width: 768px){
+        height: 80vh;
+    }
 `
 const ModalContent =  styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 4rem;
+    overflow-y: scroll;
     font-family: 'Rubik Light', sans-serif;
     line-height: 1.8;
     color: #fff;
@@ -52,17 +55,24 @@ const ModalContent =  styled.div`
         border: 4px solid #FBB117;
     }
 
-    p {
-        margin-bottom: 2rem;
-    }
-
     h2 {
         margin-bottom: 0.5rem;
         font-size: 1rem;
     }
 
+    .description p:nth-child(2) {
+        margin-top: 2rem;;
+        margin-bottom: 1rem;
+    }
+
     a {
+        color: #fff;
+        font-weight: bold;
         margin-right: 1rem;
+
+        &:hover {
+            color: #FBB117;
+        }
     }
 
     .icon {
@@ -99,8 +109,8 @@ const ModalContent =  styled.div`
 const CloseModalButton = styled(FaTimes)`
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 32px;
+    right: 32px;
     width: 32px;
     height: 32px;
     padding: 0;
@@ -140,36 +150,10 @@ const CloseModalButton = styled(FaTimes)`
                         <h1>{episode.title}</h1>
                     </header>
 
-                    <img width="200" src={episode.photo} alt={episode.photo_alt}/>
+                    <img width="200" src={episode.artwork_url} alt={episode.artwork_url}/>
 
                     
-                    <p dangerouslySetInnerHTML={{ __html: episode.description }}></p>
-                    
-                    {/* <footer>
-                        <div>
-                            <h2>{episode.socials.title}</h2>
-
-                            <a href={episode.socials.instagram} target="_blank" rel="noopener noreferrer">
-                                <FaInstagram className="icon"/>
-                            </a>
-
-                            <a href={episode.socials.facebook} target="_blank" rel="noopener noreferrer" >
-                                <FaFacebookF className="icon"/>
-                            </a>
-                        </div>
-
-                        <div>
-                            <h2>{episode.podcast_links.title}</h2>
-
-                            <a href={episode.podcast_links.spotify} target="_blank" rel="noopener noreferrer">
-                                <FaSpotify className="icon"/>
-                            </a>
-
-                            <a href={episode.podcast_links.soundcloud} target="_blank" rel="noopener noreferrer">
-                                <FaSoundcloud className="icon"/>
-                            </a>
-                        </div>
-                    </footer> */}
+                    <div className="description" dangerouslySetInnerHTML={{ __html: episode.description }}></div>
                 </>
             )
         }

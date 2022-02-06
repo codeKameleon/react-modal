@@ -6,14 +6,35 @@ import { useFetch } from './calls/useFetch';
 import { Loader } from './components/Loader';
 import { Modal } from './components/Modal';
 
-
 // Style
+const MainTitle = styled.h1 `
+  margin: 2rem 0;
+  padding: 0 2rem;
+  text-align: center;
+  font-size: 2.5rem
+`
+const Presentation = styled.p`
+  background-color: #FBB117; 
+  padding: 2rem;
+  margin: 0 2rem;
+  line-height: 1.25;
+
+  @media (min-width: 768px){
+    max-width: 600px;
+    margin: 2.5rem auto;
+    padding: 3rem;
+  }
+
+  strong {
+    font-size: 1.25rem;
+    font-style: italic;
+  }
+`
 const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-gap: 1em;
 `
-
 const Thumb = styled.figure`
   position: relative;
   z-index: 1;
@@ -81,16 +102,21 @@ function App() {
   const openModal = i => {
     setShowModal(prev => !prev)
     setSelectedEpisode(selectedEpisode => i)
+
+    document.body.style.overflow = 'hidden';
+    
   }
 
   const closeModal = e => {
       if(modalRef.current === e.target) {
           setShowModal(false)
       }
+
+      document.body.style.overflow = 'unset'
   }
 
   // Component
-  const EpisodeThumb = () => {
+  const EpisodeThumbs = () => {
     const [items, loading] =  useFetch(process.env.REACT_APP_API_URL, process.env.REACT_APP_API_TOKEN)
 
     if(loading) {
@@ -125,8 +151,16 @@ function App() {
 
       <GlobalStyle/>
 
+      <MainTitle>Boarderless</MainTitle>
+
+      <Presentation>
+        <strong>Boarderless</strong>, c’est le podcast qui t’invite à découvrir la scène skate féminine à Bruxelles.
+        Rencontres avec des meufs de la scène amateure avec qui on parle de leur rapport au skate,
+        de l’évolution de la scène féminine à Bruxelles et de la mixité des genres dans la pratique.
+      </Presentation>
+
       <Container>
-        <EpisodeThumb />
+        <EpisodeThumbs />
 
         <Modal 
           ref={modalRef} 
