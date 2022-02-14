@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.js": "/react-modal/static/js/main.ca129d06.chunk.js",
-    "main.js.map": "/react-modal/static/js/main.ca129d06.chunk.js.map",
+    "main.js": "/react-modal/static/js/main.e1e0dde8.chunk.js",
+    "main.js.map": "/react-modal/static/js/main.e1e0dde8.chunk.js.map",
     "runtime-main.js": "/react-modal/static/js/runtime-main.37bcad48.js",
     "runtime-main.js.map": "/react-modal/static/js/runtime-main.37bcad48.js.map",
-    "static/js/2.d7a76e5f.chunk.js": "/react-modal/static/js/2.d7a76e5f.chunk.js",
-    "static/js/2.d7a76e5f.chunk.js.map": "/react-modal/static/js/2.d7a76e5f.chunk.js.map",
+    "static/js/2.02e8064b.chunk.js": "/react-modal/static/js/2.02e8064b.chunk.js",
+    "static/js/2.02e8064b.chunk.js.map": "/react-modal/static/js/2.02e8064b.chunk.js.map",
     "static/js/3.97d63f8b.chunk.js": "/react-modal/static/js/3.97d63f8b.chunk.js",
     "static/js/3.97d63f8b.chunk.js.map": "/react-modal/static/js/3.97d63f8b.chunk.js.map",
     "index.html": "/react-modal/index.html",
-    "static/js/2.d7a76e5f.chunk.js.LICENSE.txt": "/react-modal/static/js/2.d7a76e5f.chunk.js.LICENSE.txt",
+    "static/js/2.02e8064b.chunk.js.LICENSE.txt": "/react-modal/static/js/2.02e8064b.chunk.js.LICENSE.txt",
     "static/media/rubik_light.0a541fbd.woff": "/react-modal/static/media/rubik_light.0a541fbd.woff",
     "static/media/rubik_light.3e208058.woff2": "/react-modal/static/media/rubik_light.3e208058.woff2"
   },
   "entrypoints": [
     "static/js/runtime-main.37bcad48.js",
-    "static/js/2.d7a76e5f.chunk.js",
-    "static/js/main.ca129d06.chunk.js"
+    "static/js/2.02e8064b.chunk.js",
+    "static/js/main.e1e0dde8.chunk.js"
   ]
 }
