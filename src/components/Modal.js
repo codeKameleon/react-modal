@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
-import { FaTimes } from 'react-icons/fa'
+import { FiXOctagon } from 'react-icons/fi'
 import { Loader } from './Loader';
 import { useFetch } from '../calls/useFetch';
 
@@ -26,16 +26,16 @@ const ModalWrapper = styled.div`
     max-width: 768px;
     height: 100vh;
     position: relative;
-    overflow-y: scroll;
+    overflow: hidden;
     z-index: 20;
     display: flex;
     justify-content: center;
     box-shadow: 0 5px 16px rgba(0, 0, 0, .2);
     background-color: rgba(0, 0, 0, .9);
-    border-radius: 10px;
+    border-radius: 20px;
     color: #000;
 
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         height: 80vh;
     }
 `
@@ -43,8 +43,8 @@ const ModalContent =  styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 4rem;
-    overflow-y: scroll;
+    padding: 3rem;
+    overflow-y: auto;
     font-family: 'Rubik Light', sans-serif;
     line-height: 1.8;
     color: #fff;
@@ -68,7 +68,6 @@ const ModalContent =  styled.div`
     a {
         color: #fff;
         font-weight: bold;
-        margin-right: 1rem;
 
         &:hover {
             color: #FBB117;
@@ -106,7 +105,7 @@ const ModalContent =  styled.div`
         }
     }
 `
-const CloseModalButton = styled(FaTimes)`
+const CloseModalButton = styled(FiXOctagon)`
     cursor: pointer;
     position: absolute;
     top: 32px;
@@ -122,7 +121,7 @@ const CloseModalButton = styled(FaTimes)`
 
     const animation = useSpring({
         config: {
-            duration: 250
+            duration: 350
         },
 
         opacity: showModal ? 1 : 0,

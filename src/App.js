@@ -53,7 +53,6 @@ const Thumb = styled.figure`
 
   img {
     width: 100%;
-
     display:block;
     transition: transform 800ms ease;
   }
